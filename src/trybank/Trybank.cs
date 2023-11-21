@@ -28,10 +28,7 @@ public class TrybankLib
         {
             for (int i = 0; i < registeredAccounts; i++)
             {
-                if (Bank[i, 0] == number && Bank[i, 1] == agency)
-                {
-                    throw new ArgumentException("A conta já está sendo usada!");
-                }
+                if (Bank[i, 0] == number && Bank[i, 1] == agency) throw new ArgumentException("A conta já está sendo usada!");
             }
             Bank[registeredAccounts, 0] = number;
             Bank[registeredAccounts, 1] = agency;
@@ -52,19 +49,13 @@ public class TrybankLib
     {
         try
         {
-            if (Logged)
-            {
-                throw new AccessViolationException("Usuário já está logado");
-            }
+            if (Logged) throw new AccessViolationException("Usuário já está logado");
 
             for (int i = 0; i < registeredAccounts; i++)
             {
                 if (Bank[i, 0] == number && Bank[i, 1] == agency)
                 {
-                    if (Bank[i, 2] != pass)
-                    {
-                        throw new ArgumentException("Senha incorreta");
-                    }
+                    if (Bank[i, 2] != pass) throw new ArgumentException("Senha incorreta");
                     Logged = true;
                     loggedUser = i;
                 }
@@ -91,15 +82,10 @@ public class TrybankLib
     {
         try
         {
-            if (Logged)
-            {
-                Logged = false;
-                loggedUser = -99;
-            }
-            else
-            {
-                throw new AccessViolationException("Usuário não está logado");
-            }
+            if (!Logged) throw new AccessViolationException("Usuário não está logado");
+
+            Logged = false;
+            loggedUser = -99;
         }
         catch (AccessViolationException e)
         {
