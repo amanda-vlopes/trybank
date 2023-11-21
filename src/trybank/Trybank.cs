@@ -111,7 +111,16 @@ public class TrybankLib
     // 4. Construa a funcionalidade de checar o saldo
     public int CheckBalance()
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (!Logged) throw new AccessViolationException("Usuário não está logado");
+            return Bank[loggedUser, 3];
+        }
+        catch (AccessViolationException e)
+        {
+            Console.WriteLine(e.Message);
+            throw;
+        }
     }
 
     // 5. Construa a funcionalidade de depositar dinheiro
@@ -119,14 +128,8 @@ public class TrybankLib
     {
         try
         {
-            if (Logged)
-            {
-                Bank[loggedUser, 3] += value;
-            }
-            else
-            {
-                throw new AccessViolationException("Usuário não está logado");
-            }
+            if (!Logged) throw new AccessViolationException("Usuário não está logado");
+            Bank[loggedUser, 3] += value;
         }
         catch (AccessViolationException e)
         {
