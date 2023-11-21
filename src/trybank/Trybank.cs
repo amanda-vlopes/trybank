@@ -24,7 +24,27 @@ public class TrybankLib
     // 1. Construa a funcionalidade de cadastrar novas contas
     public void RegisterAccount(int number, int agency, int pass)
     {
-        throw new NotImplementedException();
+        try
+        {
+            for (int i = 0; i < registeredAccounts; i++)
+            {
+                if (Bank[i, 0] == number && Bank[i, 1] == agency)
+                {
+                    throw new ArgumentException("A conta já está sendo usada!");
+                }
+            }
+            Bank[registeredAccounts, 0] = number;
+            Bank[registeredAccounts, 1] = agency;
+            Bank[registeredAccounts, 2] = pass;
+            Bank[registeredAccounts, 3] = 0;
+
+            registeredAccounts++;
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
     }
 
     // 2. Construa a funcionalidade de fazer Login
@@ -42,7 +62,7 @@ public class TrybankLib
     // 4. Construa a funcionalidade de checar o saldo
     public int CheckBalance()
     {
-        throw new NotImplementedException();   
+        throw new NotImplementedException();
     }
 
     // 5. Construa a funcionalidade de depositar dinheiro
@@ -63,5 +83,5 @@ public class TrybankLib
         throw new NotImplementedException();
     }
 
-   
+
 }
